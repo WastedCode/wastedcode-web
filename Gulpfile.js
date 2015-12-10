@@ -10,7 +10,7 @@ webserver = require('gulp-webserver');
 watch = require('gulp-watch');
 jade = require('gulp-jade');
 
-gulp.task('default', ['clean-public', 'compile-scss', 'compile-jade']);
+gulp.task('default', ['clean-public', 'copy-images', 'compile-scss', 'compile-jade']);
 gulp.task('serve', ['default', 'webserver']);
 
 gulp.task('clean-public', function() {
@@ -41,6 +41,12 @@ gulp.task('compile-scss', function() {
     .pipe(concat('application.css'))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets'))
+});
+
+gulp.task('copy-images', function() {
+  gulp.src(['app/images/**.{jpeg,jpg,gif,png}'])
+    .pipe(watch('app/images/**.{jpeg,jpg,gif,png}'))
+    .pipe(gulp.dest('public/images'))
 });
 
 gulp.task('webserver', function() {
