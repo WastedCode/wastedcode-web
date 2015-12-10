@@ -1,4 +1,4 @@
-var concat, del, jade, gulp, sass, sourcemaps
+var concat, del, jade, gulp, minifyCss, sass, sourcemaps
 var watch, webserver;
 
 gulp = require('gulp');
@@ -9,17 +9,19 @@ sourcemaps = require('gulp-sourcemaps');
 webserver = require('gulp-webserver');
 watch = require('gulp-watch');
 jade = require('gulp-jade');
+minifyCss = require('gulp-minify-css');
 
-gulp.task('default', ['clean-public', 'copy-images', 'compile-scss', 'compile-jade']);
+gulp.task('default', ['compile-jade']);
 gulp.task('serve', ['default', 'webserver']);
+
 
 gulp.task('clean-public', function() {
   return del([
-    'public/**/*'
+    'public/**'
   ])
 });
 
-gulp.task('compile-jade', function() {
+gulp.task('compile-jade', ['compile-scss'], function() {
   gulp.src([
       'app/jade/**/*.jade',
       '!app/jade/layout.jade',
@@ -30,7 +32,7 @@ gulp.task('compile-jade', function() {
     .pipe(gulp.dest('public/'));
 });
 
-gulp.task('compile-scss', function() {
+gulp.task('compile-scss', ['copy-images'], function() {
   gulp.src([
       'app/stylesheets/**/*.scss',
       '!app/stylesheets/**/_*.scss'
@@ -39,20 +41,22 @@ gulp.task('compile-scss', function() {
     .pipe(sourcemaps.init())
     .pipe(sass({ indentedSyntax: false, errLogToConsole: true }))
     .pipe(concat('application.css'))
+    .pipe(minifyCss())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets'))
 });
 
-gulp.task('copy-images', function() {
-  gulp.src(['app/images/**.{jpeg,jpg,gif,png}'])
-    .pipe(watch('app/images/**.{jpeg,jpg,gif,png}'))
-    .pipe(gulp.dest('public/images'))
+gulp.task('copy-images', ['clean-public'], function() {
+  gulp.src(['app/images/**/*.{jpeg,jpg,gif,png}'])
+    .pipe(watch('app/images/**/*.{jpeg,jpg,gif,png}'))
+    .pipe(gulp.dest('public/assets/images'))
 });
 
+
 gulp.task('webserver', function() {
-  gulp.src('public')
+  gulp.src('./public')
     .pipe(webserver({
-      livereload: true,
+      livereload: false,
       directoryListing: false,
       open: true
     }));
