@@ -12,15 +12,16 @@ html(lang="en")
     block title
       title= "Wasted Code"
 
-  body.content
+  body
     block topnav
       div.nav-bar
         ul
           li
             a(href='/')= "Home"
           li
-            a(href='/blog')= "Blog"
+            a(href='https://medium.com/@inderpreetsingh')= "Blog"
           li
             a(href='https://github.com/isingh')= "Github"
-    block content
+    div.content
+      block content
 
