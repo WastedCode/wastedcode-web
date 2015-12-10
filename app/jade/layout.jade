@@ -1,0 +1,26 @@
+include mixins/head
+
+doctype html
+html(lang="en")
+  head
+    block styles
+      link(rel='stylesheet', href='/assets/application.css')
+    block meta
+      +meta-default(
+        "wasted code, coding, inderpreet singh, inder, isingh, blog",
+        "Website, blog and home page for Inderpreet Singh on the internet")
+    block title
+      title= "Wasted Code"
+
+  body.content
+    block topnav
+      div.nav-bar
+        ul
+          li
+            a(href='/')= "Home"
+          li
+            a(href='/blog')= "Blog"
+          li
+            a(href='https://github.com/isingh')= "Github"
+    block content
+

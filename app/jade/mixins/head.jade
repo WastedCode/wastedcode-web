@@ -1,0 +1,16 @@
+mixin meta-tag(tagName, content)
+  meta(name=tagName, content=content)
+
+mixin meta-author(name)
+  +meta-tag("author", name)
+
+mixin meta-keywords(keywords)
+  +meta-tag("keywords", keywords)
+
+mixin meta-description(description)
+  +meta-tag("description", description)
+
+mixin meta-default(keywords, description)
+  +meta-author("Inderpreet Singh")
+  +meta-keywords(keywords)
+  +meta-description(description)

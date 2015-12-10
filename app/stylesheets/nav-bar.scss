@@ -1,0 +1,39 @@
+@import '_vars';
+
+div.nav-bar {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+  border-style: solid;
+  border-bottom: 1px solid black;
+}
+
+div.nav-bar ul {
+  display: inline;
+}
+
+div.nav-bar li {
+  display: inline;
+  width: 70px;
+}
+
+div.nav-bar a {
+  display: inline-block;
+  padding: 9px;
+  height: 20px;
+  width: 70px;
+  list-style-type: none;
+}
+
+div.nav-bar a, a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+div.nav-bar a:hover {
+  color: $off-white;
+  background-color: $perhaps-teal;
+}
+
+
