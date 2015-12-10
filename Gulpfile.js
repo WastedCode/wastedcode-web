@@ -1,4 +1,5 @@
-var concat, del, jade, gulp, minifyCss, sass, sourcemaps
+var concat, del, jade, gulp, minifyCss;
+var rsync, sass, sourcemaps;
 var watch, webserver;
 
 gulp = require('gulp');
@@ -10,10 +11,10 @@ webserver = require('gulp-webserver');
 watch = require('gulp-watch');
 jade = require('gulp-jade');
 minifyCss = require('gulp-minify-css');
+rsync = require('gulp-rsync');
 
 gulp.task('default', ['compile-jade']);
 gulp.task('serve', ['default', 'webserver']);
-
 
 gulp.task('clean-public', function() {
   return del([
@@ -59,5 +60,15 @@ gulp.task('webserver', function() {
       livereload: false,
       directoryListing: false,
       open: true
+    }));
+});
+
+gulp.task('deploy', function() {
+  gulp.src('public/**')
+    .pipe(rsync({
+      root: 'public',
+      hostname: 'wastedcode.com',
+      username: 'isingh',
+      destination: '/home/isingh/wastedcode-web'
     }));
 });
