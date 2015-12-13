@@ -1,7 +1,11 @@
+@import '_mixins';
 @import '_vars';
 
 div.nav-bar {
   width: 90%;
+  @include small-screen {
+    width: 100%;
+  }
   margin: 0px;
   padding: 0px;
   margin-left: auto;

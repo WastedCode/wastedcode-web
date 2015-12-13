@@ -1,0 +1,28 @@
+$small-max-device-width: 480px;
+$tablet-max-device-width: 1024px;
+
+$retina-mq: "
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (min--moz-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx)
+";
+
+@mixin retina-small-screen {
+  @media
+    only screen
+    and (min-device-pixel-ratio: 2)
+    and (max-device-width: #{$small-max-device-width}) {
+      @content;
+    }
+}
+
+@mixin small-screen {
+  @media
+    only screen
+    and (max-device-width: #{$small-max-device-width}) {
+      @content;
+    }
+}

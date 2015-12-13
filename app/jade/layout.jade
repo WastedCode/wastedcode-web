@@ -25,7 +25,10 @@ html(lang="en")
     div.content
       block content
         div
+
+    // @if NODE_ENV='production'
     block analytics
       div.analytics
         include includes/analytics.html
+    // @endif
 

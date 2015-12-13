@@ -1,6 +1,8 @@
 var concat, del, jade, gulp, minifyCss;
-var rsync, sass, sourcemaps;
+var preprocess, rsync, sass, sourcemaps;
 var watch, webserver;
+
+var environments, dev, prod;
 
 gulp = require('gulp');
 del = require('del');
@@ -12,6 +14,11 @@ watch = require('gulp-watch');
 jade = require('gulp-jade');
 minifyCss = require('gulp-minify-css');
 rsync = require('gulp-rsync');
+preprocess = require('gulp-preprocess');
+
+environments = require('gulp-environments');
+dev = environments.development;
+prod = environments.production;
 
 gulp.task('default', ['compile-jade']);
 gulp.task('serve', ['default', 'webserver']);
@@ -30,6 +37,7 @@ gulp.task('compile-jade', ['compile-scss'], function() {
   ])
     .pipe(watch('app/jade/**/*.jade'))
     .pipe(jade())
+    .pipe(preprocess())
     .pipe(gulp.dest('public/'));
 });
 
@@ -42,7 +50,7 @@ gulp.task('compile-scss', ['copy-images'], function() {
     .pipe(sourcemaps.init())
     .pipe(sass({ indentedSyntax: false, errLogToConsole: true }))
     .pipe(concat('application.css'))
-    .pipe(minifyCss())
+    .pipe(prod(minifyCss()))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets'))
 });
