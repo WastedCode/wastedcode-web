@@ -22,7 +22,7 @@ $retina-mq: "
 @mixin small-screen {
   @media
     only screen
-    and (max-device-width: #{$small-max-device-width}) {
+    and (max-width: #{$small-max-device-width}) {
       @content;
     }
 }
